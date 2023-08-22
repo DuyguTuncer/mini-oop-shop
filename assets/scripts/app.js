@@ -53,7 +53,6 @@ class ProductItem {
 
     const button = listItem.querySelector("button");
     button.addEventListener("click", this.addToCart.bind(this));
-
     return listItem;
   }
 }
@@ -76,7 +75,6 @@ class ProductList {
   ];
 
   render() {
-    // const root = document.getElementById("app");
     const ulEl = document.createElement("ul");
     ulEl.className = "product-list";
 
