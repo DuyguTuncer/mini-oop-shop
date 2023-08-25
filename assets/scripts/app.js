@@ -15,6 +15,11 @@ class Product {
 class ShoppingCart {
   items = [];
 
+  addProduct(product) {
+    this.items.push(product);
+    this.totalOutput.innerHTML = `<h2>Total: ${1}</h2>`;
+  }
+
   render() {
     const cartContainer = document.createElement("section");
     cartContainer.className = "cart";
@@ -22,6 +27,7 @@ class ShoppingCart {
           <h2>Total: ${0}</h2>
           <button> Buy it now! </button>
       `;
+    this.totalOutput = cartContainer.querySelector("h2");
     return cartContainer;
   }
 }
@@ -32,7 +38,7 @@ class ProductItem {
   }
 
   addToCart() {
-    console.log("adding to the cart");
+    // console.log("adding to the cart");
     console.log("product", this.product);
   }
 
@@ -89,22 +95,28 @@ class ProductList {
 
 class Shop {
   render() {
+    this.shoppingCart = new ShoppingCart();
+    const shoppingCartEl = this.shoppingCart.render();
+
     const productList = new ProductList();
     const productListEl = productList.render();
 
-    const shoppingCart = new ShoppingCart();
-    const cartEl = shoppingCart.render();
-
-    const root = document.getElementById("app");
-    root.append(cartEl);
-    root.append(productListEl);
+    const mainRoot = document.getElementById("app");
+    mainRoot.append(shoppingCartEl);
+    mainRoot.append(productListEl);
   }
 }
 
 class App {
+  static shoppingCart;
   static init() {
     const shop = new Shop();
     shop.render();
+    this.shop = shop;
+  }
+
+  static addToShoppingCart(item) {
+    this.shop.shoppingCart.addProduct(item);
   }
 }
 
